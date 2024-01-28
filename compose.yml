@@ -1,0 +1,21 @@
+version: '3'
+services:
+  homeassistant:
+    container_name: ha
+    image: "ghcr.io/home-assistant/home-assistant:stable"
+    volumes:
+      - /data/docker/ha:/config
+      - /etc/localtime:/etc/localtime:ro
+      - /run/dbus:/run/dbus:ro
+    restart: unless-stopped
+    privileged: true
+    network_mode: host
+  
+  uptime-kuma:
+    image: louislam/uptime-kuma:1
+    container_name: uptime
+    volumes:
+      - /data/docker/kuma:/app/data
+    ports:
+      - 3001:3001
+    restart: always
