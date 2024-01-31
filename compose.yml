@@ -65,6 +65,7 @@ services:
     volumes:
       - /data/docker/etc/emby:/config # Configuration directory
       - /data/docker/moviepilot/media:/data # Media directory
+      - /data/docker/moviepilot/downloads:/downloads
     ports:
       - 8096:8096 # HTTP port
       - 8920:8920 # HTTPS port
