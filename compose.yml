@@ -28,6 +28,9 @@ services:
       - /data/docker/moviepilot/downloads:/downloads
       - /data/docker/moviepilot/media:/media
       - /var/run/docker.sock:/var/run/docker.sock:ro
+    environment:
+      - QB_HOST=qbittorrent:8080
+      - QB_USER=admin
     ports:
       - 3000:3000
     restart: always
