@@ -1,5 +1,13 @@
 version: '3'
 services:
+  homepage:
+    image: ghcr.io/gethomepage/homepage:latest
+    container_name: homepage
+    ports:
+      - 3000:3000
+    volumes:
+      - /data/docker/etc/homepage:/app/config # Make sure your local config directory exists
+      - /var/run/docker.sock:/var/run/docker.sock # (optional) For docker integrations
   homeassistant:
     container_name: ha
     image: "ghcr.io/home-assistant/home-assistant:stable"
@@ -30,6 +38,10 @@ services:
       - /data/docker/moviepilot/media:/media
       - /data/docker/moviepilot/downloads:/downloads
       - /var/run/docker.sock:/var/run/docker.sock:ro
+    environment:
+      - AUTH_SITE=$AUTH_SITE
+      - ICC2022_UID=$ICC2022_UID
+      - ICC2022_PASSKEY=$ICC2022_PASSKEY
     ports:
       - 3000:3000
     restart: always
