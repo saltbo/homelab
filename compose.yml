@@ -84,3 +84,13 @@ services:
     devices:
       - /dev/dri:/dev/dri # VAAPI/NVDEC/NVENC render nodes
     restart: on-failure
+
+  jellyfin:
+    image: jellyfin/jellyfin
+    container_name: jellyfin
+    network_mode: 'host'
+    volumes:
+      - /data/docker/etc/jellyfin:/config # Configuration directory
+      - /data/docker/jellyfin/cache:/cache
+      - /data/docker/moviepilot/media:/media # Media directory
+    restart: 'unless-stopped'
