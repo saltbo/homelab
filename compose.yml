@@ -10,6 +10,7 @@ services:
     volumes:
       - /data/docker/etc/homepage:/app/config # Make sure your local config directory exists
       - /var/run/docker.sock:/var/run/docker.sock # (optional) For docker integrations
+
   homeassistant:
     container_name: ha
     image: "ghcr.io/home-assistant/home-assistant:stable"
@@ -20,7 +21,7 @@ services:
     restart: unless-stopped
     privileged: true
     network_mode: host
-  
+
   uptime-kuma:
     image: louislam/uptime-kuma:1
     container_name: uptime
@@ -42,12 +43,13 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock:ro
     environment:
       - AUTH_SITE=$AUTH_SITE
+      - IYUU_SIGN=$IYUU_SIGN
       - ICC2022_UID=$ICC2022_UID
       - ICC2022_PASSKEY=$ICC2022_PASSKEY
     ports:
       - 3000:3000
     restart: always
-  
+
   qbittorrent:
     image: lscr.io/linuxserver/qbittorrent:latest
     container_name: qbittorrent
@@ -76,7 +78,8 @@ services:
       - GIDLIST=100 # A comma-separated list of additional GIDs to run emby as (default: 2)
     volumes:
       - /data/docker/etc/emby:/config # Configuration directory
-      - /data/docker/moviepilot/media:/data # Media directory
+      - /data/docker/emby:/data
+      - /data/docker/moviepilot/media:/media # Media directory
       - /data/docker/moviepilot/downloads:/downloads
     ports:
       - 8096:8096 # HTTP port
