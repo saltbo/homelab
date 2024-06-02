@@ -32,7 +32,7 @@ services:
     restart: always
 
   moviepilot:
-    image: jxxghp/moviepilot:latest
+    image: jxxghp/moviepilot:1.9.2
     container_name: moviepilot
     network_mode: host
     volumes:
@@ -46,8 +46,10 @@ services:
       - IYUU_SIGN=$IYUU_SIGN
       - ICC2022_UID=$ICC2022_UID
       - ICC2022_PASSKEY=$ICC2022_PASSKEY
-    ports:
-      - 3000:3000
+      - BIG_MEMORY_MODE=true
+      - AUTO_UPDATE_RESOURCE=false
+      - MOVIEPILOT_AUTO_UPDATE=false
+      - PLUGIN_MARKET=https://github.com/jxxghp/MoviePilot-Plugins,https://github.com/thsrite/MoviePilot-Plugins
     restart: always
 
   qbittorrent:
@@ -62,10 +64,6 @@ services:
     volumes:
       - /data/docker/etc/qbittorrent:/config
       - /data/docker/moviepilot/downloads:/downloads
-    ports:
-      - 8080:8080
-      - 6881:6881
-      - 6881:6881/udp
     restart: unless-stopped
 
   emby:
