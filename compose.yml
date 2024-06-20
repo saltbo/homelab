@@ -3,6 +3,7 @@ services:
   homepage:
     image: ghcr.io/gethomepage/homepage:latest
     container_name: homepage
+    restart: always
     ports:
       - 8000:3000
     extra_hosts:
