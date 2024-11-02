@@ -49,6 +49,7 @@ services:
       - ICC2022_PASSKEY=$ICC2022_PASSKEY
       - BIG_MEMORY_MODE=true
       - AUTO_UPDATE_RESOURCE=false
+      - PROXY_HOST=socks5://openwrt.lan:1081
       - MOVIEPILOT_AUTO_UPDATE=false
       - PLUGIN_MARKET=https://github.com/jxxghp/MoviePilot-Plugins,https://github.com/thsrite/MoviePilot-Plugins
     restart: always
