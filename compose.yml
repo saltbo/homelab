@@ -42,14 +42,11 @@ services:
       - /data/media:/media
       - /data/downloads:/downloads
       - /var/run/docker.sock:/var/run/docker.sock:ro
+    env_file:
+      - .env
     environment:
-      - AUTH_SITE=$AUTH_SITE
-      - IYUU_SIGN=$IYUU_SIGN
-      - ICC2022_UID=$ICC2022_UID
-      - ICC2022_PASSKEY=$ICC2022_PASSKEY
       - BIG_MEMORY_MODE=true
       - AUTO_UPDATE_RESOURCE=false
-      - PROXY_HOST=socks5://openwrt.lan:1081
       - MOVIEPILOT_AUTO_UPDATE=false
       - PLUGIN_MARKET=https://github.com/jxxghp/MoviePilot-Plugins,https://github.com/thsrite/MoviePilot-Plugins
     restart: always
@@ -88,14 +85,14 @@ services:
       - /dev/dri:/dev/dri # VAAPI/NVDEC/NVENC render nodes
     restart: on-failure
 
-  jellyfin:
-    image: jellyfin/jellyfin
-    container_name: jellyfin
-    # network_mode: 'host'
-    ports:
-      - 8097:8096 # HTTP port
-    volumes:
-      - /data/docker/etc/jellyfin:/config # Configuration directory
-      - /data/docker/jellyfin/cache:/cache
-      - /data/media:/media # Media directory
-    restart: 'unless-stopped'
+  # jellyfin:
+  #   image: jellyfin/jellyfin
+  #   container_name: jellyfin
+  #   # network_mode: 'host'
+  #   ports:
+  #     - 8097:8096 # HTTP port
+  #   volumes:
+  #     - /data/docker/etc/jellyfin:/config # Configuration directory
+  #     - /data/docker/jellyfin/cache:/cache
+  #     - /data/media:/media # Media directory
+  #   restart: 'unless-stopped'
