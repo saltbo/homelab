@@ -1,5 +1,12 @@
-version: '3'
 services:
+  caddy:
+    image: caddy:latest
+    container_name: caddy
+    restart: unless-stopped
+    network_mode: host
+    volumes:
+      - ./etc/caddy/Caddyfile:/etc/caddy/Caddyfile
+
   homepage:
     image: ghcr.io/gethomepage/homepage:latest
     container_name: homepage
@@ -11,17 +18,19 @@ services:
     volumes:
       - /data/docker/etc/homepage:/app/config # Make sure your local config directory exists
       - /var/run/docker.sock:/var/run/docker.sock # (optional) For docker integrations
+    environment:
+      - HOMEPAGE_ALLOWED_HOSTS=homelab.lan
 
   homeassistant:
     container_name: ha
     image: "ghcr.io/home-assistant/home-assistant:stable"
+    network_mode: host
     volumes:
       - /data/docker/ha:/config
       - /etc/localtime:/etc/localtime:ro
       - /run/dbus:/run/dbus:ro
     restart: unless-stopped
     privileged: true
-    network_mode: host
 
   uptime-kuma:
     image: louislam/uptime-kuma:1
@@ -59,7 +68,7 @@ services:
       - PUID=1000
       - PGID=1000
       - TZ=Etc/UTC
-      - WEBUI_PORT=8080
+      - WEBUI_PORT=8081
     volumes:
       - /data/docker/etc/qbittorrent:/config
       - /data/downloads:/downloads

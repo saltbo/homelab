@@ -1,0 +1,3 @@
+http://homelab.lan {
+	reverse_proxy localhost:8000
+}
